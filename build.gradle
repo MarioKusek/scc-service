@@ -1,0 +1,64 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.3.RELEASE'
+		// TODO added for SCC
+		verifierVersion = '1.1.2.BUILD-SNAPSHOT'
+	}
+	repositories {
+		mavenCentral()
+		maven { url "http://repo.spring.io/snapshot" }
+		maven { url "http://repo.spring.io/milestone" }
+		maven { url "http://repo.spring.io/release" }
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		// TODO this is added for SCC
+		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${verifierVersion}"
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+// TODO this is added
+apply plugin: 'groovy'
+apply plugin: 'maven-publish'
+apply plugin: 'spring-cloud-contract'
+
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+	maven { url "http://repo.spring.io/snapshot" }
+	maven { url "http://repo.spring.io/milestone" }
+	maven { url "http://repo.spring.io/release" }
+}
+
+
+ext {
+	springCloudVersion = 'Dalston.BUILD-SNAPSHOT'
+}
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-amqp')
+	runtime('org.springframework.boot:spring-boot-devtools')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+
+	// TODO added for SCC
+	//testCompile('org.springframework.cloud:spring-cloud-starter-contract-stub-runner')
+	testCompile('org.springframework.cloud:spring-cloud-starter-contract-verifier')
+	//testCompile('org.springframework.cloud:spring-cloud-contract-wiremock')
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
+// TODO added for SCC
+
+contracts {
+	packageWithBaseClasses = 'hr.fer.tel.contracts'
+}
