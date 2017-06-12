@@ -1,8 +1,8 @@
 package hr.fer.tel.contracts;
 
-import org.apache.commons.collections4.map.HashedMap;
+import static org.assertj.core.api.Assertions.*;
+
 import org.junit.runner.RunWith;
-import org.springframework.amqp.core.MessageBuilder;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +16,7 @@ import hr.fer.tel.scc.service.ServiceApplication;
 import hr.fer.tel.scc.service.messaging.RabbitManager;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {ServiceApplication.class, RabbitManager.class}, webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@SpringBootTest(classes = {ServiceApplication.class, RabbitManager.class, BookService.class}, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 
 @AutoConfigureMessageVerifier
 public abstract class SensorBase {
@@ -30,16 +30,6 @@ public abstract class SensorBase {
 	}
 	
 	public void bookEventWasReceived() {
-		// TODO check that book was received
-	}
-	
-	public void emitGetSensorDataEvent() {
-		//rabbitTemplate.convertSendAndReceive("sensor-service", "sensor.read", "");
-//		rabbitTemplate.send("sensor-service", "sensor.read",
-//              MessageBuilder.withBody("{ \"value\": 45, \"name\": \"testSensor\" }".getBytes()).build());
-		rabbitTemplate.send("sensor-service", "sensor.read", 
-				MessageBuilder.withBody("".getBytes())
-					.setReplyTo("sensor-client")
-					.build());
+		assertThat(bookService.noOfBooks()).isEqualTo(1);
 	}
 }
