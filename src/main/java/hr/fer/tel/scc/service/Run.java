@@ -1,6 +1,5 @@
 package hr.fer.tel.scc.service;
 
-import org.assertj.core.api.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
