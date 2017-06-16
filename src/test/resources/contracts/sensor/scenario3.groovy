@@ -23,7 +23,7 @@ then:
 	input {
 		messageFrom('input')
 		messageBody([
-				bookName: 'foo'
+				bookName: 'foo3'
 		])
 		messageHeaders { 
 			messagingContentType(applicationJson())

@@ -26,8 +26,8 @@ then:
 	}
 
 	outputMessage {
-		sentTo('output')
-		body('''{ "bookName" : "foo" }''')
+		sentTo('')
+		body('''{ "bookName" : "foo1" }''')
 		headers {
 			messagingContentType(applicationJson())
 		}
