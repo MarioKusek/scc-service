@@ -23,16 +23,18 @@ then:
 	input {
 		messageFrom('input')
 		messageBody([
-				bookName: 'foo'
+				bookName: 'foo2'
 		])
 		messageHeaders { 
 			messagingContentType(applicationJson())
+			header('amqp_replyTo', 'amq.rabbitmq.reply-to')
+			header('bill', 'bill')
 		}
 	}
 
 	outputMessage {
-		sentTo('output')
-		body('''{ "bookName" : "foo" }''')
+		sentTo('')
+		body('''{ "bookName" : "foo2" }''')
 		headers {
 			messagingContentType(applicationJson())
 		}
