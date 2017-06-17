@@ -52,18 +52,18 @@ public class RabbitManager {
     // Also, we cannot make RabbitListener return a value because there is not channel opened, so it fails.
     // However, we can use RabbitTemplate to return a value manually since this has an open channel  
 	
-	// @RabbitListener(bindings = @QueueBinding(
-	// 		value = @Queue(),
-	// 		exchange = @Exchange(
-	// 				value = "input",
-	// 				durable="true",
-	// 				autoDelete="false",
-	// 				type="topic"),
-	// 		key = "event2"
-	// ))
-	// public void newBook2(Book book, @Headers Map<String, String> headers) {
-	// 	LOG.info("newBook2 Received new book with bookname = " + book.getBookName());
-	// 	LOG.info("newBook2 Headers = " + headers);
-	// 	service.sendBook(book, headers.get("amqp_replyTo"));
-	// }
+	 @RabbitListener(bindings = @QueueBinding(
+	 		value = @Queue(),
+	 		exchange = @Exchange(
+	 				value = "input",
+	 				durable="true",
+	 				autoDelete="false",
+	 				type="topic"),
+	 		key = "event2"
+	 ))
+	 public void newBook2(Book book, @Headers Map<String, String> headers) {
+	 	LOG.info("newBook2 Received new book with bookname = " + book.getBookName());
+	 	LOG.info("newBook2 Headers = " + headers);
+	 	service.sendBook(book, headers.get("amqp_replyTo"));
+	 }
 }
