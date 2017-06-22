@@ -15,11 +15,12 @@ import org.slf4j.LoggerFactory;
 
 import hr.fer.tel.scc.service.Book;
 import hr.fer.tel.scc.service.BookService;
-import hr.fer.tel.scc.service.ServiceApplication;
-import hr.fer.tel.scc.service.messaging.RabbitManager;
+import hr.fer.tel.scc.service.BookServiceImpl;
+import hr.fer.tel.scc.service.messaging.NewBook;
+import hr.fer.tel.scc.service.messaging.RabbitConfiguration;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {ServiceApplication.class, RabbitManager.class, BookService.class}, webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@SpringBootTest(classes = {RabbitConfiguration.class, NewBook.class, BookServiceImpl.class}, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 
 @AutoConfigureMessageVerifier
 public abstract class SensorBase {
